@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <style>
+        #hcanvas {
+            transition: all 10s;
+        }
+
+        .dcanvas {
+            text-align: center;
+            margin-bottom: 200px;
+        }
+    </style>
+
+    <div class="dcanvas">
+        <canvas id="hcanvas">
+        </canvas>
+    </div>
+
+
+    <script>
+        var canvas = document.querySelector('#hcanvas');
+        var div = document.querySelector('.dcanvas');
+        var ctx = canvas.getContext('2d');
+
+        ctx.canvas.width = 800;
+        ctx.canvas.height = 600;
+        ctx.shadowColor = "#30a191";
+        ctx.shadowBlur = 2;
+        ctx.lineCap = 'round';
+        ctx.lineJoin = 'round';
+        ctx.lineWidth = 2;
+        ctx.strokeStyle = '#30a191';
+
+        ctx.beginPath();
+        ctx.moveTo(0, 455);
+
+
+        var fq = 0;
+        var x = new Array(100, 120, 180, 260, 300, 320, 340, 420, 430, 440, 450, 480, 560, 600, 620, 640, 800);
+        var y = new Array(455, 400, 600, 200, 480, 430, 455, 455, 450, 470, 440, 600, 200, 455, 435, 455, 455);
+
+
+        var fps = 60
+
+        function draw() {
+
+            ctx.lineTo(x[fq], y[fq]);
+            ctx.stroke();
+            ctx.clearRect(fq * 100, 0, x[fq], canvas.height);
+            fq++;
+
+            if (fq > x.length) {
+                fq = 0;
+                ctx.beginPath();
+                ctx.moveTo(0, 455);
+            }
+
+            setTimeout(function () {
+                requestAnimationFrame(draw);
+            }, 4000 / fps);
+
+        }
+
+
+        requestAnimationFrame(draw);
+
+    </script>
+
+</body>
+
+</html>
